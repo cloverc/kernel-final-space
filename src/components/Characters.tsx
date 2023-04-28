@@ -3,7 +3,9 @@ import { Episodes, fetchCharacterById } from '../api/fetch'
 import { Image, SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 
-const Characters = ({characters} : Episodes ) => {
+type Characters = Omit<Episodes, 'air_date'>
+
+const Characters = ({ characters = [] }: Partial<Characters>) => {
   const characterQueries = useQueries({
     queries: characters.map((character) => {
       const characterId = Number(character[character.length - 1])
@@ -21,7 +23,7 @@ const Characters = ({characters} : Episodes ) => {
           src={characterQuery.data?.img_url}
           alt={characterQuery.data?.name}
           boxSize={50}
-          bg="tomato"
+          bg="pink"
         />
       ))}
     </SimpleGrid>
