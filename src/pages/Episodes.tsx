@@ -24,25 +24,27 @@ const Episodes = () => {
         <article key={episode.id}>
           <Card
             direction={{ base: 'column', sm: 'row' }}
-            padding={5}
-            maxH={320}
+            padding={6}
             overflow="hidden"
             variant="outline"
           >
             <Image
-              boxSize={200}
+              boxSize="12rem"
               objectFit="cover"
-              margin={4}
               src={episode.img_url}
               alt={episode.name}
             />
 
-            <CardBody>
-              <Heading size="sm">{episode.name}</Heading>
-              <Text py="2">{formatLocaleDate(episode.air_date)}</Text>
+            <CardBody pt={2}>
+              <Heading as="h3" size="sm">
+                {episode.name}
+              </Heading>
+              <Text color="gray.500">{formatLocaleDate(episode.air_date)}</Text>
             </CardBody>
             <Stack>
-              <Characters characters={getCharacterIdArray(episode.characters)} />
+              <Characters
+                characters={getCharacterIdArray(episode.characters)}
+              />
             </Stack>
           </Card>
         </article>

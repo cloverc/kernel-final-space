@@ -6,26 +6,31 @@ interface CharactersProps {
 }
 
 const Characters = ({ characters }: CharactersProps) => {
-  const characterQueries = useQueries({
+  const characterResults = useQueries({
     queries: characters.map((character) => {
       const characterId = Number(character)
       return {
-        queryKey: ['character', characterId],
+        queryKey: [character],
         queryFn: () => fetchCharacterById(characterId),
       }
     }),
   })
+  
   return (
     <SimpleGrid spacing={4} columns={3}>
-      {characterQueries.map((characterQuery) => (
-        <Image
-          key={characterQuery.data?.name}
-          src={characterQuery.data?.img_url}
-          alt={characterQuery.data?.name}
-          boxSize={50}
-          bg="pink"
-        />
-      ))}
+      {characterResults.map(
+        (characterResult) =>
+          characterResult.data && (
+              <Image
+                key={characterResult.data.id}
+                src={characterResult.data.img_url}
+                alt={characterResult.data.name}
+                boxSize="50"
+                objectFit="cover"
+                bg="pink"
+              />
+          )
+      )}
     </SimpleGrid>
   )
 }
