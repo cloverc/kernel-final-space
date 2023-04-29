@@ -1,7 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
 import { Episodes, fetchCharacterById } from '../api/fetch'
 import { Image, SimpleGrid } from '@chakra-ui/react'
-import React from 'react'
 
 type Characters = Omit<Episodes, 'air_date'>
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchEpisodes } from '../api/fetch'
 import { Card, CardBody, Heading, Image, Stack, Text } from '@chakra-ui/react'

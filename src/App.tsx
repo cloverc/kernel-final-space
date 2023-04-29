@@ -1,4 +1,3 @@
-import React from 'react'
 import Episodes from './pages/Episodes'
 import { Container, Heading, Stack } from '@chakra-ui/react'
 
