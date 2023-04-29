@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchEpisodes } from '../api/fetch'
 import { Card, CardBody, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import Characters from '../components/Characters'
-import formatLocaleDate from '../utils/utils'
+import { formatLocaleDate, getCharacterIdArray } from '../utils/utils'
 
 const Episodes = () => {
   const { data: episodes, status } = useQuery({
@@ -42,7 +42,7 @@ const Episodes = () => {
               <Text py="2">{formatLocaleDate(episode.air_date)}</Text>
             </CardBody>
             <Stack>
-              <Characters characters={episode.characters} />
+              <Characters characters={getCharacterIdArray(episode.characters)} />
             </Stack>
           </Card>
         </article>
