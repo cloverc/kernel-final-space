@@ -1,3 +1,5 @@
+export const ITEMS_PER_PAGE = 10
+
 export const formatLocaleDate = (episodeDate: string) => {
   const localeDate = new Date(episodeDate).toLocaleDateString()
 

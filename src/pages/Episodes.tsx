@@ -1,55 +1,75 @@
+import { ITEMS_PER_PAGE as items } from '../utils/utils'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { fetchEpisodes } from '../api/fetch'
-import { Card, CardBody, Heading, Image, Stack, Text } from '@chakra-ui/react'
-import Characters from '../components/Characters'
-import { formatLocaleDate, getCharacterIdArray } from '../utils/utils'
+
+import EpisodeList from '../components/EpisodeList'
+import { Button, ButtonGroup, Container, Heading, Text } from '@chakra-ui/react'
 
 const Episodes = () => {
-  const { data: episodes, status } = useQuery({
-    queryKey: ['episodes'],
-    queryFn: fetchEpisodes,
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const {
+    data: episodes,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ['episode', currentPage],
+    queryFn: () => fetchEpisodes(currentPage),
+    keepPreviousData: true,
   })
 
-  if (status === 'loading') {
-    return <p>Loading...</p>
+  const episodesOffsetStart = currentPage * items
+  const episodesOffsetEnd = episodesOffsetStart + items
+
+  const paginatedEpisodes =
+    episodes?.slice(episodesOffsetStart, episodesOffsetEnd) || []
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1)
   }
 
-  if (status === 'error') {
-    return <p>Error :(</p>
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1)
   }
+
+  if (isLoading) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+  if (isError) return <p>Oops Error</p>
 
   return (
-    <div>
-      {episodes.map((episode) => (
-        <article key={episode.id}>
-          <Card
-            direction={{ base: 'column', sm: 'row' }}
-            padding={6}
-            overflow="hidden"
-            variant="outline"
-          >
-            <Image
-              boxSize="12rem"
-              objectFit="cover"
-              src={episode.img_url}
-              alt={episode.name}
-            />
-
-            <CardBody pt={2}>
-              <Heading as="h3" size="sm">
-                {episode.name}
-              </Heading>
-              <Text color="gray.500">{formatLocaleDate(episode.air_date)}</Text>
-            </CardBody>
-            <Stack>
-              <Characters
-                characters={getCharacterIdArray(episode.characters)}
-              />
-            </Stack>
-          </Card>
-        </article>
-      ))}
-    </div>
+    <Container maxW="3xl" marginBlock={10}>
+      <Heading as="h2" size="lg" mb="8">
+        Kernel Tech Test: Final Space
+      </Heading>
+      <EpisodeList episodes={paginatedEpisodes} />
+      <ButtonGroup
+        spacing="6"
+        size="sm"
+        colorScheme="green"
+        mt="6"
+        display="flex"
+        justifyContent="flex-end"
+      >
+        <Button isDisabled={currentPage < 1} onClick={prevPage}>
+          « Previous
+        </Button>
+        <Text mt="1" fontSize="sm">
+          Page {currentPage + 1}
+        </Text>
+        <Button
+          isDisabled={paginatedEpisodes.length < items - 1}
+          onClick={nextPage}
+        >
+          Next »
+        </Button>
+      </ButtonGroup>
+    </Container>
   )
 }
 

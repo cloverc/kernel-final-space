@@ -1,14 +1,18 @@
 import Episodes from './pages/Episodes'
-import { Container, Heading } from '@chakra-ui/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ChakraProvider } from '@chakra-ui/react'
+
+const queryClient = new QueryClient()
 
 const App = () => {
   return (
-    <Container maxW="3xl" marginBlock={10}>
-      <Heading as="h2" size="lg" mb="8">
-        Kernel Tech Test: Final Space
-      </Heading>
-      <Episodes />
-    </Container>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider resetCSS={true}>
+        <Episodes />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      </ChakraProvider>
+    </QueryClientProvider>
   )
 }
 
