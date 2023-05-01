@@ -12,10 +12,11 @@ const Episodes = () => {
   const {
     data: episodes,
     isError,
+    isFetching,
     isLoading,
   } = useQuery({
-    queryKey: ['episode', currentPage],
-    queryFn: () => fetchEpisodes(currentPage),
+    queryKey: ['episode'],
+    queryFn: () => fetchEpisodes(),
     keepPreviousData: true,
   })
 
@@ -56,7 +57,7 @@ const Episodes = () => {
         display="flex"
         justifyContent="flex-end"
       >
-        <Button isDisabled={currentPage < 1} onClick={prevPage}>
+        <Button isDisabled={currentPage === 0} onClick={prevPage}>
           « Previous
         </Button>
         <Text mt="1" fontSize="sm">
@@ -69,6 +70,7 @@ const Episodes = () => {
           Next »
         </Button>
       </ButtonGroup>
+      {isFetching ? <span> Loading...</span> : null}{' '}
     </Container>
   )
 }

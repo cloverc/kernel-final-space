@@ -12,10 +12,8 @@ export interface Character {
   img_url: string
 }
 
-export const fetchEpisodes = async (page = 0): Promise<Episodes[]> => {
-  const response = await fetch(
-    `https://finalspaceapi.com/api/v0/episode/?page=${page}`
-  )
+export const fetchEpisodes = async (): Promise<Episodes[]> => {
+  const response = await fetch(`https://finalspaceapi.com/api/v0/episode/`)
   if (!response.ok) {
     throw Error(response.statusText)
   }
