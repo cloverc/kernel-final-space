@@ -31,7 +31,7 @@ I decided to use TanStack Query (aka React Query) as I've had _some_ previous ex
 
 I considered implementing an infinite scroll UI pattern for pagination, however,  as the response from both the `/episode`  and  `/character` endpoints is finite and unlikely to grow in size I used a single get request to return all episodes from the `/episode` endpoint and paginate this data client-side. The query params and response data on the endpoints are pretty minimal and didn't provide an easy way for server-side pagination.
 
-I made use of the `useQueries` hook to dynamically execute the required number of `/character` queries per episode in parallel. As the data is unlikely to change I increased the default `staleTime` and `cacheTime` of the app globallly to minimise refetching the data.
+I made use of the `useQueries` hook to dynamically execute the required number of `/character` queries per episode in parallel. As the data is unlikely to change I increased the default `staleTime` and `cacheTime` of the app globally to minimise refetching the data.
 
 For speed, for creating and styling the UI I opted to make use of the Chakra UI component libray. Consideration is given for the app rendering (reasonably) well responsively.
 
