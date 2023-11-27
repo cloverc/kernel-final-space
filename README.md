@@ -1,4 +1,4 @@
-# 🌽 Kernel Technical Test
+# 🌽 [Kernel](https://data.to.design/) Technical Test
 
  - [Requirements](https://usekernel.notion.site/Kernel-Technical-Test-e9ce4823f8d44eef83e90d74597fb246)
  - Deployed app: https://stalwart-pasca-68795e.netlify.app/
